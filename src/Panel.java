@@ -31,6 +31,7 @@ public class Panel extends JPanel {
         drawCircle.setStroke(new BasicStroke(4));
 
         drawCircle.drawOval(5,1,winWidth,winHeight);
+
         //Годинні числа
         for(int i = 0; i < 12; i++){
             drawCircle.setFont(font);
@@ -56,6 +57,8 @@ public class Panel extends JPanel {
         int minute = cal.get(Calendar.MINUTE);
         int hour = cal.get(Calendar.HOUR);
 
+
+        hour = hour%12;
         //Годинникова стрілка
             angle = (hour * Math.PI/6) +
                     (minute * Math.PI/(6*60)) +
@@ -65,13 +68,13 @@ public class Panel extends JPanel {
             g2D.drawLine(225,225,   225 +x , 225 -y);
 
         //хвилинна стрілка
-            angle = (int)(minute * Math.PI/(6*60))+
-                    (int)(second * Math.PI/(360*60));
+            angle = (minute * Math.PI/30)+
+                    (second * Math.PI/(30*60));
             x = (int)(190*Math.sin(angle));
             y = (int)(190*Math.cos(angle));
             g2D.drawLine(225,225,225+x,225-y);
         //секундна стрілка
-            angle = (int)(second * Math.PI/(360*60));
+            angle = (second * Math.PI/(30));
             x = (int)(190* Math.sin(angle));
             y = (int)(190* Math.cos(angle));
             g2D.drawLine(225,225,225 + x, 225 - y);
