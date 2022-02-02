@@ -27,7 +27,6 @@ public class Panel extends JPanel {
                 while(true) {
                     try {
                         Thread.sleep(1000);
-                        System.out.println("popa");
 
 
                     } catch (InterruptedException e) {

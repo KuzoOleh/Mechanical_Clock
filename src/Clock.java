@@ -37,7 +37,7 @@ public class Clock implements Runnable {
             e.printStackTrace();
         }
 
-//        panel.repaint();
+       //repaint();
     }
 
 }

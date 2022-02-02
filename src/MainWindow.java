@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class MainWindow {
     JFrame frame;
@@ -8,7 +9,11 @@ public class MainWindow {
 
     Panel clockPanel;
 
+    MenuBar menuBar;
+
     public MainWindow(){
+
+        menuBar = new MenuBar();
 
         clockPanel = new Panel();
 
@@ -18,6 +23,8 @@ public class MainWindow {
         frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(clockPanel);
+        frame.setPreferredSize(new Dimension(460,510));
+        frame.setJMenuBar(menuBar.jMenuBar);
         frame.pack();
         frame.setLocation((scrWidth / 2),(scrHeight / 2));
         frame.setVisible(true);
