@@ -11,15 +11,14 @@ public class MenuBar implements ActionListener {
 
     JMenu chooseTimeZone = new JMenu("Часовий пояс");
     JMenu timer = new JMenu("Будильник");
-
     JMenuItem uaZone = new JMenuItem("Київ(UTC+2)");
     JMenuItem usZone = new JMenuItem("Вашингтон(UTC-8)");
     JMenuItem jpZone = new JMenuItem("Токіо(UTC+9)");
     JMenuItem euZone = new JMenuItem("Берлін(UTC+1)");
+    JMenuItem setTimer = new JMenuItem("Поставити будильник");
 
     Panel panel = new Panel();
     TimeZone timeZone;
-
     MenuBar(){
         jMenuBar = new JMenuBar();
 
@@ -30,9 +29,13 @@ public class MenuBar implements ActionListener {
         chooseTimeZone.add(usZone);
         chooseTimeZone.add(jpZone);
         chooseTimeZone.add(euZone);
+        timer.add(setTimer);
 
-        chooseTimeZone.addActionListener(this);
-        timer.addActionListener(this);
+        uaZone.addActionListener(this);
+        usZone.addActionListener(this);
+        jpZone.addActionListener(this);
+        euZone.addActionListener(this);
+        setTimer.addActionListener(this);
 
     }
 
@@ -42,7 +45,19 @@ public class MenuBar implements ActionListener {
 
             timeZone = TimeZone.getTimeZone("Ukraine/Kiev");
             panel.setCal(Calendar.getInstance(timeZone));
-            System.out.print("bob");
+            System.out.println("bob");
+        }
+        if(e.getSource() == usZone){
+            System.out.println("death to america");
+        }
+        if(e.getSource() == jpZone){
+            System.out.println("anta baka");
+        }
+        if(e.getSource() == euZone){
+            System.out.println("Zip File!");
+        }
+        if(e.getSource() == setTimer){
+            System.out.println("wakey-wakey");
         }
     }
 }
