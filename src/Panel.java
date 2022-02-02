@@ -1,10 +1,6 @@
 import javax.swing.JPanel;
 import javax.swing.plaf.TableHeaderUI;
-import java.awt.BasicStroke;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.Calendar;
 
 public class Panel extends JPanel {
@@ -13,45 +9,51 @@ public class Panel extends JPanel {
 
     double angle;
     int x, y;
-    int xCenter = 210, yCenter = 210;
 
     private Graphics2D g2D;
+    Graphics g;
+
 
     Font font;
 
     Panel() {
-        this.setPreferredSize(new Dimension(winWidth, winHeight));
-        ReDraw();
+        this.setPreferredSize(new Dimension(winWidth,winHeight));
+            ReDraw();
     }
 
     // TODO: Потрібно злапати покемона, так як при схованні та відкриті вікна все гуд...
     private void ReDraw() {
         Thread t = new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-                    System.out.println("popa");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                while(true) {
+                    try {
+                        Thread.sleep(1000);
+                        System.out.println("popa");
+
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    updateUI();
+                    repaint();
                 }
-                repaint();
-            }
         });
         t.start();
     }
 
-
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        this.g = g;
 
         Graphics2D g2D = (Graphics2D) g;
         Graphics2D drawCircle = (Graphics2D) g;
+        Graphics2D secondHand = (Graphics2D) g;
 
         font = new Font("Helvetica", Font.PLAIN, 18);
 
         //коло
         drawCircle.setStroke(new BasicStroke(4));
 
-        drawCircle.drawOval(5, 1, winWidth, winHeight);
+        drawCircle.drawOval(5, 1, 450, 450);
 
         //Годинні числа
         for (int i = 0; i < 12; i++) {
@@ -79,7 +81,6 @@ public class Panel extends JPanel {
         int hour = cal.get(Calendar.HOUR);
 
 
-        hour = hour % 12;
         //Годинникова стрілка
         angle = (hour * Math.PI / 6) +
                 (minute * Math.PI / (6 * 60)) +
@@ -95,10 +96,13 @@ public class Panel extends JPanel {
         y = (int) (190 * Math.cos(angle));
         g2D.drawLine(225, 225, 225 + x, 225 - y);
         //секундна стрілка
+        secondHand.setColor(Color.RED);
         angle = (second * Math.PI / (30));
         x = (int) (190 * Math.sin(angle));
         y = (int) (190 * Math.cos(angle));
-        g2D.drawLine(225, 225, 225 + x, 225 - y);
+        secondHand.drawLine(225, 225, 225 + x, 225 - y);
+        secondHand.dispose();
+
     }
 
     @Override
