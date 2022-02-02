@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class MainWindow implements Runnable {
+public class MainWindow {
     JFrame frame;
     int scrWidth;
     int scrHeight;
@@ -24,18 +24,7 @@ public class MainWindow implements Runnable {
         frame.setTitle("Механічний годинник");
     }
 
-
     public static void main(String[] args) {
         new MainWindow();
-
-
-    }
-
-    @Override
-    public void run() {
-        while(true){
-            try{ Thread.sleep(1000);}
-            catch (Exception e){}
-        }
     }
 }
