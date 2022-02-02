@@ -1,6 +1,10 @@
 import javax.swing.JPanel;
-import javax.swing.plaf.TableHeaderUI;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Calendar;
 
 public class Panel extends JPanel {
@@ -10,9 +14,7 @@ public class Panel extends JPanel {
     double angle;
     int x, y;
 
-    private Graphics2D g2D;
-    Graphics g;
-
+   private Calendar cal;
 
     Font font;
 
@@ -39,32 +41,31 @@ public class Panel extends JPanel {
         t.start();
     }
 
+    public void setCal(Calendar cal) {
+        this.cal = cal;
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.g = g;
 
         Graphics2D g2D = (Graphics2D) g;
-        Graphics2D drawCircle = (Graphics2D) g;
-        Graphics2D secondHand = (Graphics2D) g;
 
         font = new Font("Helvetica", Font.PLAIN, 18);
 
         //коло
-        drawCircle.setStroke(new BasicStroke(4));
+        g2D.setStroke(new BasicStroke(4));
 
-        drawCircle.drawOval(5, 1, 450, 450);
+        g2D.drawOval(5, 1, 450, 450);
 
         //Годинні числа
         for (int i = 0; i < 12; i++) {
-            drawCircle.setFont(font);
+            g2D.setFont(font);
             angle = i * Math.PI / 6;
             x = (int) (200 * Math.sin(angle));
             y = (int) (200 * Math.cos(angle));
             g2D.setStroke(new BasicStroke(2));
             g2D.drawString(Integer.toString(i), 225 + x, 225 - y);
-            //drawCircle.drawLine(210 + x, 210 - y, xCenter + x, yCenter - y);
-
-            drawCircle.drawLine(225 + x, 225 - y, 225 + x, 225 - y);
+            g2D.drawLine(225 + x, 225 - y, 225 + x, 225 - y);
         }
         //хвилинні числа
         for (int i = 0; i < 360; i++) {
@@ -74,7 +75,7 @@ public class Panel extends JPanel {
             g2D.drawLine(225 + x, 225 - y, 225 + x, 225 - y);
         }
         //ініціалізація часу
-        Calendar cal = Calendar.getInstance();
+        cal = Calendar.getInstance();
         int second = cal.get(Calendar.SECOND);
         int minute = cal.get(Calendar.MINUTE);
         int hour = cal.get(Calendar.HOUR);
@@ -94,14 +95,13 @@ public class Panel extends JPanel {
         x = (int) (190 * Math.sin(angle));
         y = (int) (190 * Math.cos(angle));
         g2D.drawLine(225, 225, 225 + x, 225 - y);
+
         //секундна стрілка
-        secondHand.setColor(Color.RED);
+        g2D.setColor(Color.RED);
         angle = (second * Math.PI / (30));
         x = (int) (190 * Math.sin(angle));
         y = (int) (190 * Math.cos(angle));
-        secondHand.drawLine(225, 225, 225 + x, 225 - y);
-        secondHand.dispose();
-
+        g2D.drawLine(225, 225, 225 + x, 225 - y);
     }
 
     @Override

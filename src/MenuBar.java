@@ -3,25 +3,35 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class MenuBar implements ActionListener {
-    JMenuBar jMenuBar = new JMenuBar();
+    JMenuBar jMenuBar;
 
-    JMenu timeZone = new JMenu("Часовий пояс");
+    JMenu chooseTimeZone = new JMenu("Часовий пояс");
     JMenu timer = new JMenu("Будильник");
 
-    JMenuItem uaZone = new JMenuItem("ЮА");
+    JMenuItem uaZone = new JMenuItem("Київ(UTC+2)");
+    JMenuItem usZone = new JMenuItem("Вашингтон(UTC-8)");
+    JMenuItem jpZone = new JMenuItem("Токіо(UTC+9)");
+    JMenuItem euZone = new JMenuItem("Берлін(UTC+1)");
 
+    Panel panel = new Panel();
+    TimeZone timeZone;
 
     MenuBar(){
-        jMenuBar.add(timeZone);
+        jMenuBar = new JMenuBar();
+
+        jMenuBar.add(chooseTimeZone);
         jMenuBar.add(timer);
 
-        timeZone.add(uaZone);
+        chooseTimeZone.add(uaZone);
+        chooseTimeZone.add(usZone);
+        chooseTimeZone.add(jpZone);
+        chooseTimeZone.add(euZone);
 
-        jMenuBar.setVisible(true);
-
-        timeZone.addActionListener(this);
+        chooseTimeZone.addActionListener(this);
         timer.addActionListener(this);
 
     }
@@ -29,6 +39,9 @@ public class MenuBar implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == uaZone){
+
+            timeZone = TimeZone.getTimeZone("Ukraine/Kiev");
+            panel.setCal(Calendar.getInstance(timeZone));
             System.out.print("bob");
         }
     }
