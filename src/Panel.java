@@ -18,6 +18,8 @@ public class Panel extends JPanel {
 
     Font font;
 
+    MenuBar menuBar = new MenuBar();
+
     Panel() {
         this.setPreferredSize(new Dimension(winWidth,winHeight));
             ReDraw();
@@ -41,9 +43,6 @@ public class Panel extends JPanel {
         t.start();
     }
 
-    public void setCal(Calendar cal) {
-        this.cal = cal;
-    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -54,7 +53,6 @@ public class Panel extends JPanel {
 
         //коло
         g2D.setStroke(new BasicStroke(4));
-
         g2D.drawOval(5, 1, 450, 450);
 
         //Годинні числа
@@ -76,6 +74,7 @@ public class Panel extends JPanel {
         }
         //ініціалізація часу
         cal = Calendar.getInstance();
+        //cal = Calendar.getInstance(menuBar.getUtcZone());
         int second = cal.get(Calendar.SECOND);
         int minute = cal.get(Calendar.MINUTE);
         int hour = cal.get(Calendar.HOUR);
