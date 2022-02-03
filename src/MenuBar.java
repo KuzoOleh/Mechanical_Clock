@@ -140,6 +140,7 @@ public class MenuBar implements ActionListener {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+
             System.out.println("wakey-wakey");
         }
     }
