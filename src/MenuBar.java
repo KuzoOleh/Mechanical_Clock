@@ -12,9 +12,11 @@ public class MenuBar implements ActionListener {
     JMenu chooseTimeZone = new JMenu("Часовий пояс");
     JMenu timer = new JMenu("Будильник");
     JMenuItem uaZone = new JMenuItem("Київ(UTC+2)");
-    JMenuItem usZone = new JMenuItem("Вашингтон(UTC-8)");
+    JMenuItem usZone = new JMenuItem("Нью-Йорк(UTC-8)");
     JMenuItem jpZone = new JMenuItem("Токіо(UTC+9)");
     JMenuItem euZone = new JMenuItem("Берлін(UTC+1)");
+    JMenuItem auZone = new JMenuItem("Канберра(UTC+11)");
+
     JMenuItem setTimer = new JMenuItem("Поставити будильник");
 
     Panel panel = new Panel();
@@ -35,6 +37,7 @@ public class MenuBar implements ActionListener {
         usZone.addActionListener(this);
         jpZone.addActionListener(this);
         euZone.addActionListener(this);
+        auZone.addActionListener(this);
         setTimer.addActionListener(this);
 
     }
@@ -42,21 +45,29 @@ public class MenuBar implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == uaZone){
-
-            timeZone = TimeZone.getTimeZone("Ukraine/Kiev");
+            timeZone = TimeZone.getTimeZone("Europe/Kiev");
+            //timeZone = TimeZone.getTimeZone("Ukraine/Kiev");
             panel.setCal(Calendar.getInstance(timeZone));
-            System.out.println("bob");
+            System.out.println(timeZone);
         }
         if(e.getSource() == usZone){
-            System.out.println("death to america");
+            timeZone = TimeZone.getTimeZone("America/New_York");
+            System.out.println(timeZone);
         }
         if(e.getSource() == jpZone){
-            System.out.println("anta baka");
+            timeZone = TimeZone.getTimeZone("Asia/Tokyo");
+            System.out.println(timeZone);
         }
         if(e.getSource() == euZone){
-            System.out.println("Zip File!");
+            timeZone = TimeZone.getTimeZone("Europe/Berlin");
+            System.out.println(timeZone);
+        }
+        if(e.getSource() == auZone){
+            timeZone = TimeZone.getTimeZone("Australia/Canberra");
+            System.out.println(timeZone);
         }
         if(e.getSource() == setTimer){
+
             System.out.println("wakey-wakey");
         }
     }

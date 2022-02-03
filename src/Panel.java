@@ -58,7 +58,7 @@ public class Panel extends JPanel {
         g2D.drawOval(5, 1, 450, 450);
 
         //Годинні числа
-        for (int i = 0; i < 12; i++) {
+        for (int i = 1; i < 13; i++) {
             g2D.setFont(font);
             angle = i * Math.PI / 6;
             x = (int) (200 * Math.sin(angle));
