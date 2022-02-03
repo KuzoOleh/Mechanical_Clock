@@ -1,9 +1,11 @@
+import javax.sound.sampled.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalTime;
+import java.io.File;
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
@@ -26,6 +28,28 @@ public class MenuBar implements ActionListener {
     private int timeInSecond;
     private int timeInMinute;
     private int timeInHour;
+
+    File file = new File("C:\\Users\\olegk\\IdeaProjects\\Mechanical_Clock\\src\\resource\\Timer.wav");
+    AudioInputStream audioStream;
+
+    {
+        try {
+            audioStream = AudioSystem.getAudioInputStream(file);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    Clip clip;
+
+    {
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
 
     public int getTimeInSecond() {
         return timeInSecond;
@@ -108,7 +132,14 @@ public class MenuBar implements ActionListener {
 
         }
         if(e.getSource() == setTimer){
-
+            try {
+                clip.open(audioStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             System.out.println("wakey-wakey");
         }
     }
