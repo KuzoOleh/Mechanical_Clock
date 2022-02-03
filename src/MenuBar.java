@@ -51,10 +51,6 @@ public class MenuBar implements ActionListener {
 
     }
 
-    public TimeZone getUtcZone() {
-        return utcZone;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == uaZone){
@@ -64,7 +60,7 @@ public class MenuBar implements ActionListener {
              timeInSecond = kievTime.getSecond();
              timeInMinute = kievTime.getMinute();
              timeInHour = kievTime.getHour();
-             System.out.println(timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+             System.out.println("Київ: " +timeInHour + " : " + timeInMinute +" : " + timeInSecond);
         }
         if(e.getSource() == usZone){
             zone = ZoneId.of("America/New_York");
@@ -72,7 +68,7 @@ public class MenuBar implements ActionListener {
             timeInSecond = nyTime.getSecond();
             timeInMinute = nyTime.getMinute();
             timeInHour = nyTime.getHour();
-            System.out.println(timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Нью-Йорк: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
         }
         if(e.getSource() == jpZone){
             zone = ZoneId.of("Asia/Tokyo");
@@ -80,7 +76,7 @@ public class MenuBar implements ActionListener {
             timeInSecond = tokyoTime.getSecond();
             timeInMinute = tokyoTime.getMinute();
             timeInHour = tokyoTime.getHour();
-            System.out.println(timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Токіо: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
         }
         if(e.getSource() == euZone){
             zone = ZoneId.of("Europe/Berlin");
@@ -88,7 +84,7 @@ public class MenuBar implements ActionListener {
             timeInSecond = berlinTime.getSecond();
             timeInMinute = berlinTime.getMinute();
             timeInHour = berlinTime.getHour();
-            System.out.println(timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Берлін: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
 
         }
         if(e.getSource() == auZone){
@@ -97,7 +93,7 @@ public class MenuBar implements ActionListener {
             timeInSecond = berlinTime.getSecond();
             timeInMinute = berlinTime.getMinute();
             timeInHour = berlinTime.getHour();
-            System.out.println(timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Канберра: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
 
         }
         if(e.getSource() == setTimer){
