@@ -23,10 +23,21 @@ public class MenuBar implements ActionListener {
 
     ZoneId zone;
 
-    int timeInSecond;
-    int timeInMinute;
-    int timeInHour;
+    private int timeInSecond;
+    private int timeInMinute;
+    private int timeInHour;
 
+    public int getTimeInSecond() {
+        return timeInSecond;
+    }
+
+    public int getTimeInMinute() {
+        return timeInMinute;
+    }
+
+    public int getTimeInHour() {
+        return timeInHour;
+    }
 
     private TimeZone utcZone;
     MenuBar(){
