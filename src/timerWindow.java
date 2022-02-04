@@ -71,7 +71,7 @@ public class timerWindow implements ActionListener {
         startTimer.addActionListener(this);
         stopTimer.addActionListener(this);
 
-        for (int i = 0; i <= 24; i++) {
+        for (int i = 1; i <= 12; i++) {
             hourBox.addItem(i);
         }
         for (int i = 0; i < 60; i++) {

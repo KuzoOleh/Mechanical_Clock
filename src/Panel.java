@@ -16,8 +16,8 @@ public class Panel extends JPanel {
     int x, y;
 
     private static int hour;
-   private static int minute;
-   private static int second;
+    private static int minute;
+    private static int second;
 
     public static int getHour() {
         return hour;
@@ -85,12 +85,7 @@ public class Panel extends JPanel {
         }
         //ініціалізація часу
         Calendar cal = Calendar.getInstance(MainWindow.menuBar.getZone());
-        //cal = Calendar.getInstance(menuBar.getUtcZone());
-//
-//        int second = cal.get(menuBar.getTimeInSecond());
-//        int minute = cal.get(menuBar.getTimeInMinute());
-//        int hour = cal.get(menuBar.getTimeInHour());
-//        cal.set(Calendar.HOUR_OF_DAY,24);
+
         second = cal.get(Calendar.SECOND);
         minute = cal.get(Calendar.MINUTE);
         hour = cal.get(Calendar.HOUR);
