@@ -34,7 +34,6 @@ public class MenuBar implements ActionListener {
 
     {
         try {
-            new timerWindow();
             audioStream = AudioSystem.getAudioInputStream(file);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();

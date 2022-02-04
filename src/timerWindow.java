@@ -5,12 +5,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class timerWindow implements ActionListener {
     JFrame frame;
-    JComboBox hourBox;
-    JComboBox minuteBox;
-    JComboBox secondBox;
+    JComboBox<Integer> hourBox;
+    JComboBox<Integer> minuteBox;
+    JComboBox<Integer> secondBox;
+
+    String comboBoxHour;
+    String comboBoxMinute;
+    String comboBoxSecond;
+
+    int toIntHour;
+    int toIntMinute;
+    int toIntSecond;
 
     JLabel textTime;
     JLabel title;
@@ -18,15 +27,14 @@ public class timerWindow implements ActionListener {
     JButton startTimer;
     JButton stopTimer;
 
+    Panel panel;
 
     File file = new File("src//resource//Timer.wav");
     AudioInputStream audioStream;
     {
         try {
             audioStream = AudioSystem.getAudioInputStream(file);
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (UnsupportedAudioFileException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -41,13 +49,15 @@ public class timerWindow implements ActionListener {
     }
 
     timerWindow(){
+        panel = new Panel();
+
         frame = new JFrame();
         frame.setSize(300,300);
         frame.setLayout(new FlowLayout());
 
-        hourBox = new JComboBox();
-        minuteBox = new JComboBox();
-        secondBox = new JComboBox();
+        hourBox = new JComboBox<>();
+        minuteBox = new JComboBox<>();
+        secondBox = new JComboBox<>();
 
         title = new JLabel("Встановіть час для будильника");
         title.setSize(100,300);
@@ -69,6 +79,7 @@ public class timerWindow implements ActionListener {
             minuteBox.addItem(i);
             secondBox.addItem(i);
         }
+
         hourBox.setPreferredSize(new Dimension(75,25));
         minuteBox.setPreferredSize(new Dimension(75,25));
         secondBox.setPreferredSize(new Dimension(75,25));
@@ -79,23 +90,35 @@ public class timerWindow implements ActionListener {
         frame.add(secondBox);
         frame.add(startTimer);
         frame.add(stopTimer);
-
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == startTimer){
-            stopTimer.setVisible(true);
+        if(e.getSource() == startTimer) {
             System.out.println("timer started!");
-            try {
-                clip.open(audioStream);
-                clip.start();
-            } catch (LineUnavailableException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            comboBoxHour = Objects.requireNonNull(hourBox.getSelectedItem()).toString();
+            comboBoxMinute = Objects.requireNonNull(minuteBox.getSelectedItem()).toString();
+            comboBoxSecond = Objects.requireNonNull(secondBox.getSelectedItem()).toString();
+            toIntSecond = Integer.parseInt(comboBoxSecond);
+            toIntMinute = Integer.parseInt(comboBoxMinute);
+            toIntHour = Integer.parseInt(comboBoxHour);
+            System.out.println(comboBoxHour + " : " + comboBoxMinute + " : " + comboBoxSecond);
+            if ((toIntHour == panel.getHour()) && (toIntMinute == panel.getMinute())
+                    && (toIntSecond == panel.getSecond())) {
+                try {
+                    stopTimer.setVisible(true);
+                    clip.open(audioStream);
+                    clip.start();
+                } catch (LineUnavailableException | IOException ex) {
+                    ex.printStackTrace();
+                }
             }
+        }
+        if(e.getSource() == stopTimer){
+            clip.stop();
+            clip.close();
+            stopTimer.setVisible(false);
+            System.out.println("timer stopped!");
         }
     }
 }

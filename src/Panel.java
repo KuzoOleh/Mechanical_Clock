@@ -16,6 +16,22 @@ public class Panel extends JPanel {
 
    private Calendar cal;
 
+   private int hour;
+   private int minute;
+   private int second;
+
+    public int getHour() {
+        return hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
     Font font;
 
     MenuBar menuBar = new MenuBar();
@@ -80,9 +96,9 @@ public class Panel extends JPanel {
 //        int minute = cal.get(menuBar.getTimeInMinute());
 //        int hour = cal.get(menuBar.getTimeInHour());
 
-        int second = cal.get(Calendar.SECOND);
-        int minute = cal.get(Calendar.MINUTE);
-        int hour = cal.get(Calendar.HOUR);
+        second = cal.get(Calendar.SECOND);
+        minute = cal.get(Calendar.MINUTE);
+        hour = cal.get(Calendar.HOUR);
 
 
         //Годинникова стрілка
