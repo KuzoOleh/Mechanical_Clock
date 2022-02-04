@@ -90,6 +90,8 @@ public class timerWindow implements ActionListener {
         frame.add(secondBox);
         frame.add(startTimer);
         frame.add(stopTimer);
+
+
     }
 
     @Override

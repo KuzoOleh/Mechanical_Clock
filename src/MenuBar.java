@@ -23,7 +23,7 @@ public class MenuBar implements ActionListener {
 
     JMenuItem setTimer = new JMenuItem("Поставити будильник");
 
-    ZoneId zone;
+    private ZoneId zone = ZoneId.of("Europe/Kiev");
 
     private int timeInSecond;
     private int timeInMinute;
@@ -61,6 +61,10 @@ public class MenuBar implements ActionListener {
 
     public int getTimeInHour() {
         return timeInHour;
+    }
+
+    public TimeZone getZone() {
+        return TimeZone.getTimeZone(zone);
     }
 
     MenuBar(){
