@@ -75,9 +75,14 @@ public class Panel extends JPanel {
         //ініціалізація часу
         cal = Calendar.getInstance();
         //cal = Calendar.getInstance(menuBar.getUtcZone());
-        int second = cal.get(menuBar.getTimeInSecond());
-        int minute = cal.get(menuBar.getTimeInMinute());
-        int hour = cal.get(menuBar.getTimeInHour());
+//
+//        int second = cal.get(menuBar.getTimeInSecond());
+//        int minute = cal.get(menuBar.getTimeInMinute());
+//        int hour = cal.get(menuBar.getTimeInHour());
+
+        int second = cal.get(Calendar.SECOND);
+        int minute = cal.get(Calendar.MINUTE);
+        int hour = cal.get(Calendar.HOUR);
 
 
         //Годинникова стрілка

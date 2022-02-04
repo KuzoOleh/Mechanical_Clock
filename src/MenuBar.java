@@ -29,11 +29,12 @@ public class MenuBar implements ActionListener {
     private int timeInMinute;
     private int timeInHour;
 
-    File file = new File("C:\\Users\\olegk\\IdeaProjects\\Mechanical_Clock\\src\\resource\\Timer.wav");
+    File file = new File("src//resource//Timer.wav");
     AudioInputStream audioStream;
 
     {
         try {
+            new timerWindow();
             audioStream = AudioSystem.getAudioInputStream(file);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
