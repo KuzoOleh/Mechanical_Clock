@@ -64,7 +64,6 @@ public class MenuBar implements ActionListener {
         return timeInHour;
     }
 
-    private TimeZone utcZone;
     MenuBar(){
         jMenuBar = new JMenuBar();
 
@@ -134,6 +133,8 @@ public class MenuBar implements ActionListener {
         }
         if(e.getSource() == setTimer){
             try {
+                timerWindow TimerWindow = new timerWindow();
+                TimerWindow.frame.setVisible(true);
                 clip.open(audioStream);
                 clip.start();
             } catch (LineUnavailableException ex) {
