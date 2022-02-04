@@ -9,7 +9,7 @@ public class MainWindow {
 
     Panel clockPanel;
 
-    MenuBar menuBar;
+    public static MenuBar menuBar;
 
     public MainWindow(){
 

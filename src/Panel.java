@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MenuBar;
 import java.util.Calendar;
 
 public class Panel extends JPanel {
@@ -14,7 +15,21 @@ public class Panel extends JPanel {
     double angle;
     int x, y;
 
-   private Calendar cal;
+    private static int hour;
+   private static int minute;
+   private static int second;
+
+    public static int getHour() {
+        return hour;
+    }
+
+    public static int getMinute() {
+        return minute;
+    }
+
+    public static int getSecond() {
+        return second;
+    }
 
     Font font;
 
@@ -25,18 +40,14 @@ public class Panel extends JPanel {
             ReDraw();
     }
 
-    // TODO: Потрібно злапати покемона, так як при схованні та відкриті вікна все гуд...
     private void ReDraw() {
         Thread t = new Thread(() -> {
                 while(true) {
                     try {
                         Thread.sleep(1000);
-
-
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    updateUI();
                     repaint();
                 }
         });
@@ -73,12 +84,16 @@ public class Panel extends JPanel {
             g2D.drawLine(225 + x, 225 - y, 225 + x, 225 - y);
         }
         //ініціалізація часу
-        cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(MainWindow.menuBar.getZone());
         //cal = Calendar.getInstance(menuBar.getUtcZone());
-        int second = cal.get(menuBar.getTimeInSecond());
-        int minute = cal.get(menuBar.getTimeInMinute());
-        int hour = cal.get(menuBar.getTimeInHour());
-
+//
+//        int second = cal.get(menuBar.getTimeInSecond());
+//        int minute = cal.get(menuBar.getTimeInMinute());
+//        int hour = cal.get(menuBar.getTimeInHour());
+//        cal.set(Calendar.HOUR_OF_DAY,24);
+        second = cal.get(Calendar.SECOND);
+        minute = cal.get(Calendar.MINUTE);
+        hour = cal.get(Calendar.HOUR);
 
         //Годинникова стрілка
         angle = (hour * Math.PI / 6) +

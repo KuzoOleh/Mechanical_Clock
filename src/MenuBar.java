@@ -1,9 +1,11 @@
+import javax.sound.sampled.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalTime;
+import java.io.File;
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
@@ -21,11 +23,33 @@ public class MenuBar implements ActionListener {
 
     JMenuItem setTimer = new JMenuItem("Поставити будильник");
 
-    ZoneId zone;
+    private ZoneId zone = ZoneId.of("Europe/Kiev");
 
     private int timeInSecond;
     private int timeInMinute;
     private int timeInHour;
+
+    File file = new File("src//resource//Timer.wav");
+    AudioInputStream audioStream;
+
+    {
+        try {
+            audioStream = AudioSystem.getAudioInputStream(file);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    Clip clip;
+
+    {
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
 
     public int getTimeInSecond() {
         return timeInSecond;
@@ -39,7 +63,10 @@ public class MenuBar implements ActionListener {
         return timeInHour;
     }
 
-    private TimeZone utcZone;
+    public TimeZone getZone() {
+        return TimeZone.getTimeZone(zone);
+    }
+
     MenuBar(){
         jMenuBar = new JMenuBar();
 
@@ -108,6 +135,16 @@ public class MenuBar implements ActionListener {
 
         }
         if(e.getSource() == setTimer){
+            try {
+                timerWindow TimerWindow = new timerWindow();
+                TimerWindow.frame.setVisible(true);
+                clip.open(audioStream);
+                //clip.start();
+            } catch (LineUnavailableException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
             System.out.println("wakey-wakey");
         }
