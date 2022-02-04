@@ -27,10 +27,9 @@ public class timerWindow implements ActionListener {
     JButton startTimer;
     JButton stopTimer;
 
-    Panel panel;
-
     File file = new File("src//resource//Timer.wav");
     AudioInputStream audioStream;
+
     {
         try {
             audioStream = AudioSystem.getAudioInputStream(file);
@@ -38,6 +37,7 @@ public class timerWindow implements ActionListener {
             e.printStackTrace();
         }
     }
+
     Clip clip;
 
     {
@@ -48,11 +48,10 @@ public class timerWindow implements ActionListener {
         }
     }
 
-    timerWindow(){
-        panel = new Panel();
+    timerWindow() {
 
         frame = new JFrame();
-        frame.setSize(300,300);
+        frame.setSize(300, 300);
         frame.setLayout(new FlowLayout());
 
         hourBox = new JComboBox<>();
@@ -60,10 +59,10 @@ public class timerWindow implements ActionListener {
         secondBox = new JComboBox<>();
 
         title = new JLabel("Встановіть час для будильника");
-        title.setSize(100,300);
+        title.setSize(100, 300);
 
-        textTime = new JLabel("    Година:  " +"  хвилина:   " + "  секунда:   ");
-        textTime.setPreferredSize(new Dimension(250,100));
+        textTime = new JLabel("    Година:  " + "  хвилина:   " + "  секунда:   ");
+        textTime.setPreferredSize(new Dimension(250, 100));
 
         startTimer = new JButton("Включити будильник");
         stopTimer = new JButton("Виключити будильник");
@@ -72,17 +71,17 @@ public class timerWindow implements ActionListener {
         startTimer.addActionListener(this);
         stopTimer.addActionListener(this);
 
-        for(int i = 0; i <= 24; i++){
+        for (int i = 0; i <= 24; i++) {
             hourBox.addItem(i);
         }
-        for(int i = 0; i < 60; i++){
+        for (int i = 0; i < 60; i++) {
             minuteBox.addItem(i);
             secondBox.addItem(i);
         }
 
-        hourBox.setPreferredSize(new Dimension(75,25));
-        minuteBox.setPreferredSize(new Dimension(75,25));
-        secondBox.setPreferredSize(new Dimension(75,25));
+        hourBox.setPreferredSize(new Dimension(75, 25));
+        minuteBox.setPreferredSize(new Dimension(75, 25));
+        secondBox.setPreferredSize(new Dimension(75, 25));
         frame.add(title);
         frame.add(textTime);
         frame.add(hourBox);
@@ -96,7 +95,7 @@ public class timerWindow implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == startTimer) {
+        if (e.getSource() == startTimer) {
             System.out.println("timer started!");
             comboBoxHour = Objects.requireNonNull(hourBox.getSelectedItem()).toString();
             comboBoxMinute = Objects.requireNonNull(minuteBox.getSelectedItem()).toString();
@@ -104,23 +103,47 @@ public class timerWindow implements ActionListener {
             toIntSecond = Integer.parseInt(comboBoxSecond);
             toIntMinute = Integer.parseInt(comboBoxMinute);
             toIntHour = Integer.parseInt(comboBoxHour);
+            if (toIntHour == 12) {
+                toIntHour = 0;
+            }
             System.out.println(comboBoxHour + " : " + comboBoxMinute + " : " + comboBoxSecond);
-            if ((toIntHour == panel.getHour()) && (toIntMinute == panel.getMinute())
-                    && (toIntSecond == panel.getSecond())) {
+
+            stopTimer.setVisible(true);
+
+            Thread checkClockAlarm = new Thread(this::run, "ClockAlarm");
+            checkClockAlarm.start();
+        }
+        if (e.getSource() == stopTimer) {
+            clip.stop();
+            clip.close();
+            stopTimer.setVisible(false);
+            System.out.println("timer stopped!");
+        }
+    }
+boolean exit = false;
+    private void run() {
+        while (!exit) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+
+            int currentHour = Panel.getHour();
+            int currentMinute = Panel.getMinute();
+            int currentSecond = Panel.getSecond();
+
+            if ((toIntHour == currentHour) && (toIntMinute == currentMinute)
+                    && (toIntSecond == currentSecond)) {
                 try {
-                    stopTimer.setVisible(true);
                     clip.open(audioStream);
                     clip.start();
                 } catch (LineUnavailableException | IOException ex) {
                     ex.printStackTrace();
                 }
+                exit = true;
+                System.out.println("Stop: " + Thread.currentThread().getName());
             }
-        }
-        if(e.getSource() == stopTimer){
-            clip.stop();
-            clip.close();
-            stopTimer.setVisible(false);
-            System.out.println("timer stopped!");
         }
     }
 }

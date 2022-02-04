@@ -15,21 +15,19 @@ public class Panel extends JPanel {
     double angle;
     int x, y;
 
-   private Calendar cal;
+    private static int hour;
+   private static int minute;
+   private static int second;
 
-   private int hour;
-   private int minute;
-   private int second;
-
-    public int getHour() {
+    public static int getHour() {
         return hour;
     }
 
-    public int getMinute() {
+    public static int getMinute() {
         return minute;
     }
 
-    public int getSecond() {
+    public static int getSecond() {
         return second;
     }
 
@@ -86,17 +84,16 @@ public class Panel extends JPanel {
             g2D.drawLine(225 + x, 225 - y, 225 + x, 225 - y);
         }
         //ініціалізація часу
-        cal = Calendar.getInstance(MainWindow.menuBar.getZone());
+        Calendar cal = Calendar.getInstance(MainWindow.menuBar.getZone());
         //cal = Calendar.getInstance(menuBar.getUtcZone());
 //
 //        int second = cal.get(menuBar.getTimeInSecond());
 //        int minute = cal.get(menuBar.getTimeInMinute());
 //        int hour = cal.get(menuBar.getTimeInHour());
-
+//        cal.set(Calendar.HOUR_OF_DAY,24);
         second = cal.get(Calendar.SECOND);
         minute = cal.get(Calendar.MINUTE);
         hour = cal.get(Calendar.HOUR);
-
 
         //Годинникова стрілка
         angle = (hour * Math.PI / 6) +
