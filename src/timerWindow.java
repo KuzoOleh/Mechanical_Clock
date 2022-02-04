@@ -1,7 +1,10 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class timerWindow implements ActionListener {
     JFrame frame;
@@ -14,6 +17,29 @@ public class timerWindow implements ActionListener {
 
     JButton startTimer;
     JButton stopTimer;
+
+
+    File file = new File("src//resource//Timer.wav");
+    AudioInputStream audioStream;
+    {
+        try {
+            audioStream = AudioSystem.getAudioInputStream(file);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    Clip clip;
+
+    {
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
     timerWindow(){
         frame = new JFrame();
         frame.setSize(300,300);
@@ -62,6 +88,14 @@ public class timerWindow implements ActionListener {
         if(e.getSource() == startTimer){
             stopTimer.setVisible(true);
             System.out.println("timer started!");
+            try {
+                clip.open(audioStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

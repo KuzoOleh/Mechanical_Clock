@@ -136,7 +136,7 @@ public class MenuBar implements ActionListener {
                 timerWindow TimerWindow = new timerWindow();
                 TimerWindow.frame.setVisible(true);
                 clip.open(audioStream);
-                clip.start();
+                //clip.start();
             } catch (LineUnavailableException ex) {
                 ex.printStackTrace();
             } catch (IOException ex) {
