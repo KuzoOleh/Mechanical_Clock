@@ -29,19 +29,17 @@ public class MenuBar implements ActionListener {
     private int timeInMinute;
     private int timeInHour;
 
-    File file = new File("src//resource//Timer.wav");
-    AudioInputStream audioStream;
+    public static File file = new File("src//resource//Timer.wav");
+    public static AudioInputStream audioStream;
 
     {
         try {
             audioStream = AudioSystem.getAudioInputStream(file);
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (UnsupportedAudioFileException | IOException e) {
             e.printStackTrace();
         }
     }
-    Clip clip;
+    public static Clip clip;
 
     {
         try {

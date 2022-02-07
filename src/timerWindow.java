@@ -1,9 +1,8 @@
-import javax.sound.sampled.*;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -26,27 +25,6 @@ public class timerWindow implements ActionListener {
 
     JButton startTimer;
     JButton stopTimer;
-
-    File file = new File("src//resource//Timer.wav");
-    AudioInputStream audioStream;
-
-    {
-        try {
-            audioStream = AudioSystem.getAudioInputStream(file);
-        } catch (UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    Clip clip;
-
-    {
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
 
     timerWindow() {
 
@@ -90,6 +68,11 @@ public class timerWindow implements ActionListener {
         frame.add(startTimer);
         frame.add(stopTimer);
 
+        if (MenuBar.clip.isOpen() || MenuBar.clip.isRunning()){
+            startTimer.setEnabled(false);
+            stopTimer.setVisible(true);
+        }
+
 
     }
 
@@ -112,12 +95,14 @@ public class timerWindow implements ActionListener {
 
             Thread checkClockAlarm = new Thread(this::run, "ClockAlarm");
             checkClockAlarm.start();
+            startTimer.setEnabled(false);
         }
         if (e.getSource() == stopTimer) {
-            clip.stop();
-            clip.close();
+            MenuBar.clip.stop();
+            MenuBar.clip.close();
             stopTimer.setVisible(false);
             System.out.println("timer stopped!");
+            startTimer.setEnabled(true);
         }
     }
 boolean exit = false;
@@ -135,12 +120,8 @@ boolean exit = false;
 
             if ((toIntHour == currentHour) && (toIntMinute == currentMinute)
                     && (toIntSecond == currentSecond)) {
-                try {
-                    clip.open(audioStream);
-                    clip.start();
-                } catch (LineUnavailableException | IOException ex) {
-                    ex.printStackTrace();
-                }
+                //                    MenuBar.clip.open(MenuBar.audioStream);
+                MenuBar.clip.start();
                 exit = true;
                 System.out.println("Stop: " + Thread.currentThread().getName());
             }
