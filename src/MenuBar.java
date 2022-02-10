@@ -21,8 +21,8 @@ public class MenuBar implements ActionListener {
     JMenuItem euZone = new JMenuItem("Берлін(UTC+1)");
     JMenuItem auZone = new JMenuItem("Канберра(UTC+11)");
     JMenuItem ukZone = new JMenuItem("Лондон(UTC+0)");
-    JMenuItem zcZone = new JMenuItem("Танзанія(UTC+3)");
-    JMenuItem egZone = new JMenuItem("Єгипт(UTC+2)");
+    JMenuItem zcZone = new JMenuItem("Каіро(UTC+2)");
+    JMenuItem brZone = new JMenuItem("Акрі(UTC-5)");
     JMenuItem caZone = new JMenuItem("Торонто(UTC-4)");
     JMenuItem meZone = new JMenuItem("Мехіко-сіті(UTC-6)");
 
@@ -85,7 +85,7 @@ public class MenuBar implements ActionListener {
         chooseTimeZone.add(auZone);
         chooseTimeZone.add(ukZone);
         chooseTimeZone.add(zcZone);
-        chooseTimeZone.add(egZone);
+        chooseTimeZone.add(brZone);
         chooseTimeZone.add(caZone);
         chooseTimeZone.add(meZone);
 
@@ -96,6 +96,11 @@ public class MenuBar implements ActionListener {
         jpZone.addActionListener(this);
         euZone.addActionListener(this);
         auZone.addActionListener(this);
+        ukZone.addActionListener(this);
+        zcZone.addActionListener(this);
+        brZone.addActionListener(this);
+        caZone.addActionListener(this);
+        meZone.addActionListener(this);
         setTimer.addActionListener(this);
 
     }
@@ -105,10 +110,10 @@ public class MenuBar implements ActionListener {
         if(e.getSource() == uaZone){
            //беремо час Київа
             zone = ZoneId.of("Europe/Kiev");
-            ZonedDateTime kievTime = ZonedDateTime.now(zone);
-             timeInSecond = kievTime.getSecond();
-             timeInMinute = kievTime.getMinute();
-             timeInHour = kievTime.getHour();
+            ZonedDateTime kyivTime = ZonedDateTime.now(zone);
+             timeInSecond = kyivTime.getSecond();
+             timeInMinute = kyivTime.getMinute();
+             timeInHour = kyivTime.getHour();
              System.out.println("Київ: " +timeInHour + " : " + timeInMinute +" : " + timeInSecond);
         }
         if(e.getSource() == usZone){
@@ -138,11 +143,51 @@ public class MenuBar implements ActionListener {
         }
         if(e.getSource() == auZone){
             zone = ZoneId.of("Australia/Canberra");
+            ZonedDateTime canberraTime = ZonedDateTime.now(zone);
+            timeInSecond = canberraTime.getSecond();
+            timeInMinute = canberraTime.getMinute();
+            timeInHour = canberraTime.getHour();
+            System.out.println("Канберра: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+        }
+        if(e.getSource() == ukZone){
+            zone = ZoneId.of("Europe/London");
             ZonedDateTime berlinTime = ZonedDateTime.now(zone);
             timeInSecond = berlinTime.getSecond();
             timeInMinute = berlinTime.getMinute();
             timeInHour = berlinTime.getHour();
-            System.out.println("Канберра: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Лондон: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+        }
+        if(e.getSource() == zcZone){
+            zone = ZoneId.of("Africa/Cairo");
+            ZonedDateTime cairoTime = ZonedDateTime.now(zone);
+            timeInSecond = cairoTime.getSecond();
+            timeInMinute = cairoTime.getMinute();
+            timeInHour = cairoTime.getHour();
+            System.out.println("Каіро: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+        }
+        if(e.getSource() == brZone){
+            zone = ZoneId.of("Brazil/Acre");
+            ZonedDateTime brazilTime = ZonedDateTime.now(zone);
+            timeInSecond = brazilTime.getSecond();
+            timeInMinute = brazilTime.getMinute();
+            timeInHour = brazilTime.getHour();
+            System.out.println("Акрі: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+        }
+        if(e.getSource() == caZone) {
+            zone = ZoneId.of("America/Toronto");
+            ZonedDateTime torontoTime = ZonedDateTime.now(zone);
+            timeInSecond = torontoTime.getSecond();
+            timeInMinute = torontoTime.getMinute();
+            timeInHour = torontoTime.getHour();
+            System.out.println("Торонто: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
+        }
+        if(e.getSource() == meZone){
+            zone = ZoneId.of("America/Mexico_City");
+            ZonedDateTime mexicoTime = ZonedDateTime.now(zone);
+            timeInSecond = mexicoTime.getSecond();
+            timeInMinute = mexicoTime.getMinute();
+            timeInHour = mexicoTime.getHour();
+            System.out.println("Мехіко-Сіті: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
 
         }
         if(e.getSource() == setTimer){
