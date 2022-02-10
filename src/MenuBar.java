@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,6 @@ public class MenuBar implements ActionListener {
     private ZoneId zone = ZoneId.of("Europe/Kiev");
 
     ImageIcon icon;
-    Image img;
 
     private int timeInSecond;
     private int timeInMinute;
@@ -48,6 +48,7 @@ public class MenuBar implements ActionListener {
             e.printStackTrace();
         }
     }
+
     Clip clip;
 
     {
@@ -74,7 +75,7 @@ public class MenuBar implements ActionListener {
         return TimeZone.getTimeZone(zone);
     }
 
-    MenuBar(){
+    MenuBar() {
         jMenuBar = new JMenuBar();
 
         jMenuBar.add(chooseTimeZone);
@@ -109,75 +110,77 @@ public class MenuBar implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == uaZone){
-           //беремо час Київа
+        if (e.getSource() == uaZone) {
+            //беремо час Київа
             zone = ZoneId.of("Europe/Kiev");
-            icon = new ImageIcon("src\\resource\\image.jpeg");
-            img = icon.getImage();
+            icon = new ImageIcon("src\\resource\\image\\kyiv.jpg");
+            Panel.icon = icon;
             ZonedDateTime kyivTime = ZonedDateTime.now(zone);
-             timeInSecond = kyivTime.getSecond();
-             timeInMinute = kyivTime.getMinute();
-             timeInHour = kyivTime.getHour();
-             System.out.println("Київ: " +timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            timeInSecond = kyivTime.getSecond();
+            timeInMinute = kyivTime.getMinute();
+            timeInHour = kyivTime.getHour();
+            System.out.println("Київ: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == usZone){
+        if (e.getSource() == usZone) {
             zone = ZoneId.of("America/New_York");
+            icon = new ImageIcon("src\\resource\\image\\New_York.jpg");
+            Panel.icon = icon;
             ZonedDateTime nyTime = ZonedDateTime.now(zone);
             timeInSecond = nyTime.getSecond();
             timeInMinute = nyTime.getMinute();
             timeInHour = nyTime.getHour();
-            System.out.println("Нью-Йорк: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Нью-Йорк: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == jpZone){
+        if (e.getSource() == jpZone) {
             zone = ZoneId.of("Asia/Tokyo");
             ZonedDateTime tokyoTime = ZonedDateTime.now(zone);
             timeInSecond = tokyoTime.getSecond();
             timeInMinute = tokyoTime.getMinute();
             timeInHour = tokyoTime.getHour();
-            System.out.println("Токіо: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Токіо: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == euZone){
+        if (e.getSource() == euZone) {
             zone = ZoneId.of("Europe/Berlin");
             ZonedDateTime berlinTime = ZonedDateTime.now(zone);
             timeInSecond = berlinTime.getSecond();
             timeInMinute = berlinTime.getMinute();
             timeInHour = berlinTime.getHour();
-            System.out.println("Берлін: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Берлін: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
 
         }
-        if(e.getSource() == auZone){
+        if (e.getSource() == auZone) {
             zone = ZoneId.of("Australia/Canberra");
             ZonedDateTime canberraTime = ZonedDateTime.now(zone);
             timeInSecond = canberraTime.getSecond();
             timeInMinute = canberraTime.getMinute();
             timeInHour = canberraTime.getHour();
-            System.out.println("Канберра: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Канберра: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == ukZone){
+        if (e.getSource() == ukZone) {
             zone = ZoneId.of("Europe/London");
             ZonedDateTime berlinTime = ZonedDateTime.now(zone);
             timeInSecond = berlinTime.getSecond();
             timeInMinute = berlinTime.getMinute();
             timeInHour = berlinTime.getHour();
-            System.out.println("Лондон: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Лондон: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == zcZone){
+        if (e.getSource() == zcZone) {
             zone = ZoneId.of("Africa/Cairo");
             ZonedDateTime cairoTime = ZonedDateTime.now(zone);
             timeInSecond = cairoTime.getSecond();
             timeInMinute = cairoTime.getMinute();
             timeInHour = cairoTime.getHour();
-            System.out.println("Каіро: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Каіро: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == brZone){
+        if (e.getSource() == brZone) {
             zone = ZoneId.of("Brazil/Acre");
             ZonedDateTime brazilTime = ZonedDateTime.now(zone);
             timeInSecond = brazilTime.getSecond();
             timeInMinute = brazilTime.getMinute();
             timeInHour = brazilTime.getHour();
-            System.out.println("Акрі: " + timeInHour + " : " + timeInMinute +" : " + timeInSecond);
+            System.out.println("Акрі: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == caZone) {
+        if (e.getSource() == caZone) {
             zone = ZoneId.of("America/Toronto");
             ZonedDateTime torontoTime = ZonedDateTime.now(zone);
             timeInSecond = torontoTime.getSecond();
@@ -185,7 +188,7 @@ public class MenuBar implements ActionListener {
             timeInHour = torontoTime.getHour();
             System.out.println("Торонто: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
         }
-        if(e.getSource() == meZone){
+        if (e.getSource() == meZone) {
             zone = ZoneId.of("America/Mexico_City");
             ZonedDateTime mexicoTime = ZonedDateTime.now(zone);
             timeInSecond = mexicoTime.getSecond();
@@ -194,7 +197,7 @@ public class MenuBar implements ActionListener {
             System.out.println("Мехіко-Сіті: " + timeInHour + " : " + timeInMinute + " : " + timeInSecond);
 
         }
-        if(e.getSource() == setTimer){
+        if (e.getSource() == setTimer) {
             try {
                 timerWindow TimerWindow = new timerWindow();
                 TimerWindow.frame.setVisible(true);

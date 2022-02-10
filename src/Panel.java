@@ -1,10 +1,5 @@
-import javax.swing.JPanel;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.MenuBar;
 import java.util.Calendar;
 
@@ -16,8 +11,8 @@ public class Panel extends JPanel {
     int x, y;
 
     private static int hour;
-   private static int minute;
-   private static int second;
+    private static int minute;
+    private static int second;
 
     public static int getHour() {
         return hour;
@@ -35,30 +30,34 @@ public class Panel extends JPanel {
 
     MenuBar menuBar = new MenuBar();
 
+    public static ImageIcon icon = new ImageIcon("src\\resource\\image\\kyiv.jpg");
+
     Panel() {
-        this.setPreferredSize(new Dimension(winWidth,winHeight));
-            ReDraw();
+        this.setPreferredSize(new Dimension(winWidth, winHeight));
+        ReDraw();
     }
 
     private void ReDraw() {
         Thread t = new Thread(() -> {
-                while(true) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    repaint();
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                repaint();
+            }
         });
         t.start();
     }
 
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2D = (Graphics2D) g;
+
+
+        Image im = icon.getImage();
+        g.drawImage(im, 0, 0, this);
 
         font = new Font("Helvetica", Font.PLAIN, 18);
 
