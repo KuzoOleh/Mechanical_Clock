@@ -1,7 +1,6 @@
 import javax.sound.sampled.*;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,6 +28,9 @@ public class MenuBar implements ActionListener {
     JMenuItem setTimer = new JMenuItem("Поставити будильник");
 
     private ZoneId zone = ZoneId.of("Europe/Kiev");
+
+    ImageIcon icon;
+    Image img;
 
     private int timeInSecond;
     private int timeInMinute;
@@ -110,6 +112,8 @@ public class MenuBar implements ActionListener {
         if(e.getSource() == uaZone){
            //беремо час Київа
             zone = ZoneId.of("Europe/Kiev");
+            icon = new ImageIcon("src\\resource\\image.jpeg");
+            img = icon.getImage();
             ZonedDateTime kyivTime = ZonedDateTime.now(zone);
              timeInSecond = kyivTime.getSecond();
              timeInMinute = kyivTime.getMinute();

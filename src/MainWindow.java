@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow {
-    JFrame frame;
+    public static JFrame frame;
     int scrWidth;
     int scrHeight;
 
