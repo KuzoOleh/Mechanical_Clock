@@ -20,6 +20,11 @@ public class MenuBar implements ActionListener {
     JMenuItem jpZone = new JMenuItem("Токіо(UTC+9)");
     JMenuItem euZone = new JMenuItem("Берлін(UTC+1)");
     JMenuItem auZone = new JMenuItem("Канберра(UTC+11)");
+    JMenuItem ukZone = new JMenuItem("Лондон(UTC+0)");
+    JMenuItem zcZone = new JMenuItem("Танзанія(UTC+3)");
+    JMenuItem egZone = new JMenuItem("Єгипт(UTC+2)");
+    JMenuItem caZone = new JMenuItem("Торонто(UTC-4)");
+    JMenuItem meZone = new JMenuItem("Мехіко-сіті(UTC-6)");
 
     JMenuItem setTimer = new JMenuItem("Поставити будильник");
 
@@ -78,6 +83,12 @@ public class MenuBar implements ActionListener {
         chooseTimeZone.add(jpZone);
         chooseTimeZone.add(euZone);
         chooseTimeZone.add(auZone);
+        chooseTimeZone.add(ukZone);
+        chooseTimeZone.add(zcZone);
+        chooseTimeZone.add(egZone);
+        chooseTimeZone.add(caZone);
+        chooseTimeZone.add(meZone);
+
         timer.add(setTimer);
 
         uaZone.addActionListener(this);
