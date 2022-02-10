@@ -1,7 +1,12 @@
-import javax.imageio.ImageIO;
-import javax.sound.sampled.*;
-import javax.swing.*;
-import java.awt.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -133,6 +138,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == jpZone) {
             zone = ZoneId.of("Asia/Tokyo");
+            icon = new ImageIcon("src\\resource\\image\\Tokyo.jpg");
+            Panel.icon = icon;
             ZonedDateTime tokyoTime = ZonedDateTime.now(zone);
             timeInSecond = tokyoTime.getSecond();
             timeInMinute = tokyoTime.getMinute();
@@ -141,6 +148,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == euZone) {
             zone = ZoneId.of("Europe/Berlin");
+            icon = new ImageIcon("src\\resource\\image\\Berlin.jpg");
+            Panel.icon = icon;
             ZonedDateTime berlinTime = ZonedDateTime.now(zone);
             timeInSecond = berlinTime.getSecond();
             timeInMinute = berlinTime.getMinute();
@@ -150,6 +159,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == auZone) {
             zone = ZoneId.of("Australia/Canberra");
+            icon = new ImageIcon("src\\resource\\image\\Canberra.jpg");
+            Panel.icon = icon;
             ZonedDateTime canberraTime = ZonedDateTime.now(zone);
             timeInSecond = canberraTime.getSecond();
             timeInMinute = canberraTime.getMinute();
@@ -158,6 +169,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == ukZone) {
             zone = ZoneId.of("Europe/London");
+            icon = new ImageIcon("src\\resource\\image\\London.jpg");
+            Panel.icon = icon;
             ZonedDateTime berlinTime = ZonedDateTime.now(zone);
             timeInSecond = berlinTime.getSecond();
             timeInMinute = berlinTime.getMinute();
@@ -166,6 +179,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == zcZone) {
             zone = ZoneId.of("Africa/Cairo");
+            icon = new ImageIcon("src\\resource\\image\\Cairo.jpg");
+            Panel.icon = icon;
             ZonedDateTime cairoTime = ZonedDateTime.now(zone);
             timeInSecond = cairoTime.getSecond();
             timeInMinute = cairoTime.getMinute();
@@ -174,6 +189,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == brZone) {
             zone = ZoneId.of("Brazil/Acre");
+            icon = new ImageIcon("src\\resource\\image\\Acre.jpg");
+            Panel.icon = icon;
             ZonedDateTime brazilTime = ZonedDateTime.now(zone);
             timeInSecond = brazilTime.getSecond();
             timeInMinute = brazilTime.getMinute();
@@ -182,6 +199,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == caZone) {
             zone = ZoneId.of("America/Toronto");
+            icon = new ImageIcon("src\\resource\\image\\Toronto.jpg");
+            Panel.icon = icon;
             ZonedDateTime torontoTime = ZonedDateTime.now(zone);
             timeInSecond = torontoTime.getSecond();
             timeInMinute = torontoTime.getMinute();
@@ -190,6 +209,8 @@ public class MenuBar implements ActionListener {
         }
         if (e.getSource() == meZone) {
             zone = ZoneId.of("America/Mexico_City");
+            icon = new ImageIcon("src\\resource\\image\\Mexico_City.jpg");
+            Panel.icon = icon;
             ZonedDateTime mexicoTime = ZonedDateTime.now(zone);
             timeInSecond = mexicoTime.getSecond();
             timeInMinute = mexicoTime.getMinute();
