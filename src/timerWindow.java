@@ -1,4 +1,4 @@
-import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +26,13 @@ public class timerWindow implements ActionListener {
     JButton startTimer;
     JButton stopTimer;
 
+    int scrWidth;
+    int scrHeight;
+
     timerWindow() {
+        scrWidth = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        scrHeight = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+
 
         frame = new JFrame();
         frame.setSize(300, 300);
@@ -49,7 +55,7 @@ public class timerWindow implements ActionListener {
         startTimer.addActionListener(this);
         stopTimer.addActionListener(this);
 
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 0; i <= 12; i++) {
             hourBox.addItem(i);
         }
         for (int i = 0; i < 60; i++) {
@@ -60,6 +66,7 @@ public class timerWindow implements ActionListener {
         hourBox.setPreferredSize(new Dimension(75, 25));
         minuteBox.setPreferredSize(new Dimension(75, 25));
         secondBox.setPreferredSize(new Dimension(75, 25));
+        frame.setLocation((scrWidth / 2) - (300 / 2), (scrHeight / 2) - (300 / 2));
         frame.add(title);
         frame.add(textTime);
         frame.add(hourBox);
@@ -68,13 +75,15 @@ public class timerWindow implements ActionListener {
         frame.add(startTimer);
         frame.add(stopTimer);
 
-        if (MenuBar.clip.isOpen() || MenuBar.clip.isRunning()){
+        if (MenuBar.clip.isRunning() || MenuBar.clip.isOpen()) {
             startTimer.setEnabled(false);
             stopTimer.setVisible(true);
         }
 
-
     }
+
+    private final Thread checkClockAlarm = new Thread(this::run, "ClockAlarm");
+    ;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -91,11 +100,10 @@ public class timerWindow implements ActionListener {
             }
             System.out.println(comboBoxHour + " : " + comboBoxMinute + " : " + comboBoxSecond);
 
+            startTimer.setEnabled(false);
             stopTimer.setVisible(true);
 
-            Thread checkClockAlarm = new Thread(this::run, "ClockAlarm");
             checkClockAlarm.start();
-            startTimer.setEnabled(false);
         }
         if (e.getSource() == stopTimer) {
             MenuBar.clip.stop();
@@ -105,7 +113,9 @@ public class timerWindow implements ActionListener {
             startTimer.setEnabled(true);
         }
     }
-boolean exit = false;
+
+    boolean exit = false;
+
     private void run() {
         while (!exit) {
             try {

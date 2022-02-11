@@ -1,8 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+import java.awt.Dimension;
 
 public class MainWindow {
-    JFrame frame;
+    public static JFrame frame;
     int scrWidth;
     int scrHeight;
 
@@ -26,7 +27,8 @@ public class MainWindow {
         frame.setPreferredSize(new Dimension(460,510));
         frame.setJMenuBar(menuBar.jMenuBar);
         frame.pack();
-        frame.setLocation((scrWidth / 2),(scrHeight / 2));
+        frame.setLocation((scrWidth / 2) - (460 / 2),(scrHeight / 2) - (510 / 2));
+
         frame.setVisible(true);
         frame.setTitle("Механічний годинник");
     }
