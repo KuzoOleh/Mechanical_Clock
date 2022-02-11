@@ -116,7 +116,7 @@ public class Panel extends JPanel {
 
         //Годинникова стрілка
         hourHand.setStroke(new BasicStroke(5));
-        hourHand.setColor(Color.BLUE);
+        hourHand.setColor(Color.WHITE);
         angle = (hour * Math.PI / 6) +
                 (minute * Math.PI / (6 * 60)) +
                 (second * Math.PI / (360 * 60));
@@ -126,7 +126,7 @@ public class Panel extends JPanel {
 
         //хвилинна стрілка
         minuteHand.setStroke(new BasicStroke(4));
-        minuteHand.setColor(Color.BLACK);
+        minuteHand.setColor(Color.WHITE);
         angle = (minute * Math.PI / 30) +
                 (second * Math.PI / (30 * 60));
         x = (int) (190 * Math.sin(angle));
