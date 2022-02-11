@@ -1,4 +1,4 @@
-import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,7 +55,7 @@ public class timerWindow implements ActionListener {
         startTimer.addActionListener(this);
         stopTimer.addActionListener(this);
 
-        for (int i = 0; i <= 24; i++) {
+        for (int i = 0; i <= 12; i++) {
             hourBox.addItem(i);
         }
         for (int i = 0; i < 60; i++) {
