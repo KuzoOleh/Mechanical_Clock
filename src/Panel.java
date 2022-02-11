@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.BasicStroke;
@@ -8,8 +9,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MenuBar;
-import java.awt.MenuBar;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
+
 
 public class Panel extends JPanel {
     int winWidth = 450;
@@ -21,6 +25,15 @@ public class Panel extends JPanel {
     private static int hour;
     private static int minute;
     private static int second;
+    BufferedImage image;
+
+    {
+        try {
+            image = ImageIO.read(new File("src\\resource\\image\\second_Hand.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static int getHour() {
         return hour;
@@ -62,15 +75,19 @@ public class Panel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
+        Graphics2D secondHand = (Graphics2D) g;
+        Graphics2D minuteHand = (Graphics2D) g;
+        Graphics2D hourHand = (Graphics2D) g;
 
 
         Image im = icon.getImage();
         g.drawImage(im, 0, 0, this);
 
-        font = new Font("Helvetica", Font.PLAIN, 18);
+        font = new Font("Helvetica", Font.BOLD, 22);
 
         //коло
         g2D.setStroke(new BasicStroke(4));
+        g2D.setColor(Color.BLACK);
         g2D.drawOval(5, 1, 450, 450);
 
         //Годинні числа
@@ -92,37 +109,36 @@ public class Panel extends JPanel {
         }
         //ініціалізація часу
         Calendar cal = Calendar.getInstance(MainWindow.menuBar.getZone());
-        //cal = Calendar.getInstance(menuBar.getUtcZone());
-//
-//        int second = cal.get(menuBar.getTimeInSecond());
-//        int minute = cal.get(menuBar.getTimeInMinute());
-//        int hour = cal.get(menuBar.getTimeInHour());
-//        cal.set(Calendar.HOUR_OF_DAY,24);
+
         second = cal.get(Calendar.SECOND);
         minute = cal.get(Calendar.MINUTE);
         hour = cal.get(Calendar.HOUR);
 
         //Годинникова стрілка
+        hourHand.setStroke(new BasicStroke(5));
         angle = (hour * Math.PI / 6) +
                 (minute * Math.PI / (6 * 60)) +
                 (second * Math.PI / (360 * 60));
         x = (int) (160 * Math.sin(angle));
         y = (int) (160 * Math.cos(angle));
-        g2D.drawLine(225, 225, 225 + x, 225 - y);
+        hourHand.drawLine(225, 225, 230 + x, 230 - y);
 
         //хвилинна стрілка
+        minuteHand.setStroke(new BasicStroke(4));
+        minuteHand.setColor(Color.BLACK);
         angle = (minute * Math.PI / 30) +
                 (second * Math.PI / (30 * 60));
         x = (int) (190 * Math.sin(angle));
         y = (int) (190 * Math.cos(angle));
-        g2D.drawLine(225, 225, 225 + x, 225 - y);
+        minuteHand.drawLine(225, 225, 225 + x, 225 - y);
 
         //секундна стрілка
-        g2D.setColor(Color.RED);
+        secondHand.setStroke(new BasicStroke(3));
+        secondHand.setColor(Color.RED);
         angle = (second * Math.PI / (30));
         x = (int) (190 * Math.sin(angle));
         y = (int) (190 * Math.cos(angle));
-        g2D.drawLine(225, 225, 225 + x, 225 - y);
+        secondHand.drawLine(225, 225, 225 + x, 225 - y);
     }
 
     @Override
