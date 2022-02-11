@@ -1,17 +1,8 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -38,32 +29,9 @@ public class timerWindow implements ActionListener {
     int scrWidth;
     int scrHeight;
 
-    File file = new File("src//resource//Timer.wav");
-    AudioInputStream audioStream;
-
-    {
-        try {
-            audioStream = AudioSystem.getAudioInputStream(file);
-        } catch (UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    Clip clip;
-
-    {
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
-
     timerWindow() {
-
-
-        scrWidth = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        scrHeight = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        scrWidth = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        scrHeight = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 
         frame = new JFrame();
@@ -98,7 +66,7 @@ public class timerWindow implements ActionListener {
         hourBox.setPreferredSize(new Dimension(75, 25));
         minuteBox.setPreferredSize(new Dimension(75, 25));
         secondBox.setPreferredSize(new Dimension(75, 25));
-        frame.setLocation((scrWidth / 2) - (300 / 2),(scrHeight / 2) - (300 / 2));
+        frame.setLocation((scrWidth / 2) - (300 / 2), (scrHeight / 2) - (300 / 2));
         frame.add(title);
         frame.add(textTime);
         frame.add(hourBox);
@@ -107,8 +75,15 @@ public class timerWindow implements ActionListener {
         frame.add(startTimer);
         frame.add(stopTimer);
 
+        if (MenuBar.clip.isRunning() || MenuBar.clip.isOpen()) {
+            startTimer.setEnabled(false);
+            stopTimer.setVisible(true);
+        }
 
     }
+
+    private final Thread checkClockAlarm = new Thread(this::run, "ClockAlarm");
+    ;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -125,19 +100,22 @@ public class timerWindow implements ActionListener {
             }
             System.out.println(comboBoxHour + " : " + comboBoxMinute + " : " + comboBoxSecond);
 
+            startTimer.setEnabled(false);
             stopTimer.setVisible(true);
 
-            Thread checkClockAlarm = new Thread(this::run, "ClockAlarm");
             checkClockAlarm.start();
         }
         if (e.getSource() == stopTimer) {
-            clip.stop();
-            clip.close();
+            MenuBar.clip.stop();
+            MenuBar.clip.close();
             stopTimer.setVisible(false);
             System.out.println("timer stopped!");
+            startTimer.setEnabled(true);
         }
     }
-boolean exit = false;
+
+    boolean exit = false;
+
     private void run() {
         while (!exit) {
             try {
@@ -152,12 +130,8 @@ boolean exit = false;
 
             if ((toIntHour == currentHour) && (toIntMinute == currentMinute)
                     && (toIntSecond == currentSecond)) {
-                try {
-                    clip.open(audioStream);
-                    clip.start();
-                } catch (LineUnavailableException | IOException ex) {
-                    ex.printStackTrace();
-                }
+                //                    MenuBar.clip.open(MenuBar.audioStream);
+                MenuBar.clip.start();
                 exit = true;
                 System.out.println("Stop: " + Thread.currentThread().getName());
             }
