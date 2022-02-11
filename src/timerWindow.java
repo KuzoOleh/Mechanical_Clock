@@ -35,6 +35,9 @@ public class timerWindow implements ActionListener {
     JButton startTimer;
     JButton stopTimer;
 
+    int scrWidth;
+    int scrHeight;
+
     File file = new File("src//resource//Timer.wav");
     AudioInputStream audioStream;
 
@@ -57,6 +60,11 @@ public class timerWindow implements ActionListener {
     }
 
     timerWindow() {
+
+
+        scrWidth = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        scrHeight = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+
 
         frame = new JFrame();
         frame.setSize(300, 300);
@@ -90,6 +98,7 @@ public class timerWindow implements ActionListener {
         hourBox.setPreferredSize(new Dimension(75, 25));
         minuteBox.setPreferredSize(new Dimension(75, 25));
         secondBox.setPreferredSize(new Dimension(75, 25));
+        frame.setLocation((scrWidth / 2) - (300 / 2),(scrHeight / 2) - (300 / 2));
         frame.add(title);
         frame.add(textTime);
         frame.add(hourBox);

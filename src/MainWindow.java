@@ -27,7 +27,8 @@ public class MainWindow {
         frame.setPreferredSize(new Dimension(460,510));
         frame.setJMenuBar(menuBar.jMenuBar);
         frame.pack();
-        frame.setLocation((scrWidth / 2),(scrHeight / 2));
+        frame.setLocation((scrWidth / 2) - (460 / 2),(scrHeight / 2) - (510 / 2));
+
         frame.setVisible(true);
         frame.setTitle("Механічний годинник");
     }

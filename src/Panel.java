@@ -87,7 +87,7 @@ public class Panel extends JPanel {
 
         //коло
         g2D.setStroke(new BasicStroke(4));
-        g2D.setColor(Color.BLACK);
+        g2D.setColor(Color.ORANGE);
         g2D.drawOval(5, 1, 450, 450);
 
         //Годинні числа
@@ -116,6 +116,7 @@ public class Panel extends JPanel {
 
         //Годинникова стрілка
         hourHand.setStroke(new BasicStroke(5));
+        hourHand.setColor(Color.BLUE);
         angle = (hour * Math.PI / 6) +
                 (minute * Math.PI / (6 * 60)) +
                 (second * Math.PI / (360 * 60));
